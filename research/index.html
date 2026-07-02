@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BORMAN — референсы: топ-10 премиум бьюти-сайтов</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0e0d0c;--pan:#181614;--txt:#f1ece3;--mut:#9a9188;--gold:#c9a35a;--line:rgba(255,255,255,.1);--disp:'Fraunces',serif;--sans:'Manrope',sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+  header{text-align:center;padding:74px 24px 10px}
+  .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold)}
+  header h1{font-family:var(--disp);font-weight:600;font-size:clamp(32px,5.5vw,56px);margin:14px 0 12px;line-height:1.06}
+  header p{color:var(--mut);max-width:620px;margin:0 auto;font-size:16px}
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;padding:46px 0}
+  .card{background:var(--pan);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.4s}
+  .card:hover{transform:translateY(-5px);border-color:rgba(201,163,90,.4)}
+  .shot{aspect-ratio:1440/1000;overflow:hidden;position:relative;background:#222 url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2260%22 height=%2260%22><text x=%2250%25%22 y=%2250%25%22 fill=%22%23555%22 font-size=%2210%22 text-anchor=%22middle%22>loading…</text></svg>') center no-repeat}
+  .shot img{width:100%;display:block}
+  .tag{position:absolute;top:12px;left:12px;background:rgba(14,13,12,.72);backdrop-filter:blur(6px);border:1px solid var(--line);color:var(--gold);font-size:10px;letter-spacing:.14em;text-transform:uppercase;padding:5px 11px;border-radius:100px}
+  .b{padding:22px 24px 26px}
+  .b .top{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .b h2{font-family:var(--disp);font-weight:600;font-size:26px}
+  .b .open{font-size:12px;letter-spacing:.08em;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px;white-space:nowrap}
+  .b .why{color:var(--mut);font-size:14px;margin-top:12px}
+  .b .why b{color:var(--txt);font-weight:500}
+  .note{background:var(--pan);border:1px solid var(--line);border-left:3px solid var(--gold);border-radius:12px;padding:22px 26px;margin:6px 0 20px;color:var(--mut);font-size:14.5px}
+  .note b{color:var(--txt)}
+  footer{text-align:center;color:#6d665c;font-size:12px;padding:30px 0 60px}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="eyebrow">BORMAN · референсы</div>
+  <h1>Топ-10 премиум бьюти-сайтов</h1>
+  <p>Реальные сайты мирового уровня — разные стили. Посмотри превью, открой понравившиеся, и скажи мне 1–2 направления. На их базе (приёмы, не копия) соберу ОДИН финальный BORMAN.</p>
+</header>
+<div class="wrap">
+  <div class="note"><b>Как выбирать:</b> смотри не на бренд, а на <b>ощущение</b> — сетка, воздух, типографика, движение, «дорого/недорого». Превью подгружаются вживую (несколько секунд). Клик по «Открыть» — реальный сайт.</div>
+  <div class="grid" id="grid"></div>
+  <div class="note"><b>Дальше:</b> напиши номера, что зашли (например «2 и 7»), — и я сделаю на их основе один законченный сайт BORMAN с мобильной адаптацией и нашей AI-графикой.</div>
+</div>
+<footer>BORMAN · подбор референсов для выбора направления</footer>
+<script>
+  const sites=[
+    {n:1,brand:'Dyson',url:'https://www.dyson.com/hair-care/overview',tag:'Tech-luxury',why:'<b>Почему круто:</b> инженерные 3D-рендеры продуктов, кинематографичные scroll-анимации, огромный воздух, ощущение «технология будущего». <b>Заберём:</b> крупные герои продукта + доказательность + плавные переходы.'},
+    {n:2,brand:'T3 Micro',url:'https://www.t3micro.com/',tag:'Tool-luxury',why:'<b>Почему круто:</b> нежные пастели, идеальная сетка, женственный премиум, аккуратная типографика. <b>Заберём:</b> чистоту, мягкую палитру, спокойные карточки товаров.'},
+    {n:3,brand:'ghd',url:'https://www.ghdhair.com/',tag:'Pro / чёрный',why:'<b>Почему круто:</b> дерзкий чёрный + акцент, сильная типографика, «профессиональный инструмент». <b>Заберём:</b> контраст, крупные заголовки, уверенный тон.'},
+    {n:4,brand:'Shark Beauty',url:'https://www.sharkbeauty.com/',tag:'Modern tech',why:'<b>Почему круто:</b> яркий современный, много «до/после» и доказательств, молодой и продающий. <b>Заберём:</b> доказательные блоки, динамику, конверсию.'},
+    {n:5,brand:'amika',url:'https://www.loveamika.com/',tag:'Bold эдиториал',why:'<b>Почему круто:</b> смелый цвет, характер, крупная графика, игриво-премиум DTC. <b>Заберём:</b> смелость, фирменный цвет-акцент, живость.'},
+    {n:6,brand:'Gisou',url:'https://gisou.com/',tag:'Медовый люкс',why:'<b>Почему круто:</b> золото, макро-съёмка, роскошь через эмоцию и текстуру. <b>Заберём:</b> тёплую роскошь, богатые крупные фото, «вкусность».'},
+    {n:7,brand:'Dae Hair',url:'https://daehair.com/',tag:'Тёплый DTC',why:'<b>Почему круто:</b> пустынная тёпло-кремовая палитра, ретро-модерн, безупречный арт-дирекшн — эталон вкуса. <b>Заберём:</b> цельную палитру, характерную типографику, уют.'},
+    {n:8,brand:'Aesop',url:'https://www.aesop.com/',tag:'Строгий минимал',why:'<b>Почему круто:</b> максимум воздуха, засечки, аптечно-архивная эстетика, вне времени и очень дорого. <b>Заберём:</b> сдержанность, воздух, интеллигентную типографику.'},
+    {n:9,brand:'Augustinus Bader',url:'https://augustinusbader.com/us/en/',tag:'Клинический люкс',why:'<b>Почему круто:</b> наука + премиум, сдержанно и убедительно, «дорого без крика». <b>Заберём:</b> доверие, чистую структуру, премиум-нейтрал.'},
+    {n:10,brand:'Nécessaire',url:'https://www.necessaire.com/',tag:'Скандинав-минимал',why:'<b>Почему круто:</b> спокойный тёплый нейтрал, простота как роскошь, тишина и порядок. <b>Заберём:</b> спокойствие, минимализм, премиум-простоту.'},
+  ];
+  const grid=document.getElementById('grid');
+  grid.innerHTML=sites.map(s=>`<a class="card" href="${s.url}" target="_blank" rel="noopener">
+    <div class="shot"><img loading="lazy" src="https://image.thum.io/get/width/1200/crop/834/noanimate/${s.url}" alt="${s.brand}"><span class="tag">${String(s.n).padStart(2,'0')} · ${s.tag}</span></div>
+    <div class="b"><div class="top"><h2>${s.brand}</h2><span class="open">Открыть сайт ↗</span></div><div class="why">${s.why}</div></div>
+  </a>`).join('');
+</script>
+</body>
+</html>
