@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BORMAN — Красота в каждой детали</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ivory:#f6f1e9; --cream:#fbf8f2; --paper:#fffdf9;
+    --ink:#2a2018; --ink2:#5c4f42; --gold:#b3894f; --gold-lt:#cbab77; --line:#e6ddce;
+    --serif:'Cormorant Garamond',Georgia,serif; --sans:'Jost',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--ivory);color:var(--ink);font-family:var(--sans);font-weight:300;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  a{color:inherit;text-decoration:none}
+  img{display:block;max-width:100%}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px}
+  .eyebrow{font-size:12px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:400}
+  h1,h2,h3{font-family:var(--serif);font-weight:500;line-height:1.05;letter-spacing:-.01em}
+  .btn{display:inline-block;font-size:13px;letter-spacing:.14em;text-transform:uppercase;padding:15px 34px;border:1px solid var(--ink);color:var(--ink);border-radius:2px;transition:.35s;background:transparent}
+  .btn:hover{background:var(--ink);color:var(--cream)}
+  .btn.gold{background:var(--ink);color:var(--cream);border-color:var(--ink)}
+  .btn.gold:hover{background:var(--gold);border-color:var(--gold)}
+  /* header */
+  header{position:fixed;top:0;left:0;right:0;z-index:50;transition:.4s;padding:22px 0}
+  header.solid{background:rgba(251,248,242,.9);backdrop-filter:blur(12px);box-shadow:0 1px 0 var(--line);padding:14px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:.34em;padding-left:.34em}
+  .menu{display:flex;gap:34px;font-size:13px;letter-spacing:.12em;text-transform:uppercase}
+  .menu a{position:relative;padding:4px 0;color:var(--ink2)}
+  .menu a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--gold);transition:.3s}
+  .menu a:hover{color:var(--ink)}.menu a:hover::after{width:100%}
+  .nav-ico{display:flex;gap:20px;align-items:center;font-size:13px;letter-spacing:.1em}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+  .burger span{width:24px;height:1.5px;background:var(--ink)}
+  /* hero */
+  .hero{padding:150px 0 60px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center}
+  .hero h1{font-size:clamp(48px,7vw,92px)}
+  .hero h1 em{font-style:italic;color:var(--gold)}
+  .hero .lead{max-width:400px;margin:26px 0 34px;color:var(--ink2);font-size:17px}
+  .hero-img{position:relative}
+  .hero-img img{width:100%;border-radius:3px;box-shadow:0 40px 80px -30px rgba(70,50,25,.35)}
+  .hero-tag{position:absolute;left:-24px;bottom:34px;background:var(--paper);padding:16px 22px;border-radius:2px;box-shadow:0 20px 50px -20px rgba(70,50,25,.3);border:1px solid var(--line)}
+  .hero-tag b{font-family:var(--serif);font-size:22px;display:block}
+  .hero-tag small{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  .marq{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:60px;overflow:hidden;white-space:nowrap;padding:16px 0}
+  .marq span{font-family:var(--serif);font-style:italic;font-size:22px;color:var(--ink2);display:inline-block;animation:scroll 26s linear infinite}
+  .marq span i{color:var(--gold);margin:0 26px;font-style:normal}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  /* sections */
+  section{padding:90px 0}
+  .sec-head{text-align:center;margin-bottom:54px}
+  .sec-head h2{font-size:clamp(34px,5vw,58px);margin-top:10px}
+  /* categories */
+  .cats{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .cat{position:relative;border-radius:3px;overflow:hidden;aspect-ratio:3/3.4;background:#efe7d8}
+  .cat img{width:100%;height:100%;object-fit:cover;transition:1.2s cubic-bezier(.2,.7,.2,1)}
+  .cat:hover img{transform:scale(1.06)}
+  .cat .lbl{position:absolute;left:0;right:0;bottom:0;padding:26px;background:linear-gradient(0deg,rgba(30,22,14,.55),transparent);color:var(--cream)}
+  .cat .lbl h3{color:var(--cream);font-size:26px}
+  .cat .lbl small{font-size:11px;letter-spacing:.22em;text-transform:uppercase;opacity:.85}
+  /* products */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+  .card{background:var(--paper);border:1px solid var(--line);border-radius:3px;overflow:hidden;transition:.4s}
+  .card:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgba(70,50,25,.3)}
+  .card .ph{aspect-ratio:1;background:radial-gradient(circle at 50% 38%,#ffffff,#f2ece1 92%);display:flex;align-items:center;justify-content:center;padding:20px}
+  .card .ph img{width:88%;height:88%;object-fit:contain;mix-blend-mode:multiply}
+  .card .info{padding:20px 22px 24px}
+  .card .info small{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  .card .info h3{font-size:23px;margin:6px 0 4px;font-weight:600}
+  .card .price{display:flex;align-items:baseline;justify-content:space-between;margin-top:14px}
+  .card .price b{font-family:var(--serif);font-size:24px;font-weight:600}
+  .card .price span{font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);border-bottom:1px solid var(--gold);padding-bottom:2px}
+  /* editorial */
+  .edi{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .edi img{border-radius:3px;box-shadow:0 40px 80px -34px rgba(70,50,25,.4)}
+  .edi h2{font-size:clamp(32px,4.4vw,52px);margin:14px 0 20px}
+  .edi p{color:var(--ink2);margin-bottom:16px;max-width:440px}
+  .edi .facts{display:flex;gap:36px;margin-top:30px}
+  .edi .facts div b{font-family:var(--serif);font-size:38px;color:var(--gold);display:block;line-height:1}
+  .edi .facts div small{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2)}
+  /* band */
+  .band{position:relative;height:70vh;min-height:440px;border-radius:4px;overflow:hidden;display:flex;align-items:center}
+  .band img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .band .txt{position:relative;color:var(--cream);padding:0 8vw;max-width:640px}
+  .band .txt h2{color:var(--cream);font-size:clamp(34px,5vw,60px)}
+  .band::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(25,18,10,.6),rgba(25,18,10,.1))}
+  .band .txt{z-index:2}
+  /* footer */
+  footer{background:var(--ink);color:#d9cdbb;padding:80px 0 40px;margin-top:90px}
+  footer .logo{color:var(--cream)}
+  .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin:40px 0}
+  .fgrid h4{font-family:var(--sans);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:16px;font-weight:400}
+  .fgrid a{display:block;padding:5px 0;color:#c9bca9;font-size:14px}
+  .fgrid a:hover{color:#fff}
+  .fbot{border-top:1px solid rgba(255,255,255,.12);padding-top:24px;display:flex;justify-content:space-between;font-size:12px;letter-spacing:.08em;color:#9c8f7c;flex-wrap:wrap;gap:12px}
+  /* reveal */
+  .rv{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.7,.2,1)}
+  .rv.in{opacity:1;transform:none}
+  @media(max-width:900px){
+    .menu,.nav-ico .lnk{display:none}.burger{display:flex}
+    .hero-grid{grid-template-columns:1fr;gap:34px}.hero{padding:120px 0 40px}
+    .cats{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr;gap:14px}
+    .edi{grid-template-columns:1fr;gap:30px}.edi .order1{order:-1}
+    section{padding:60px 0}.hero-tag{left:12px}
+  }
+  @media(max-width:520px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header id="hdr">
+  <div class="wrap nav">
+    <div class="logo">BORMAN</div>
+    <nav class="menu">
+      <a href="#cats">Каталог</a><a href="#best">Хиты</a><a href="#tech">Технология</a><a href="#care">О бренде</a>
+    </nav>
+    <div class="nav-ico"><span class="lnk">Поиск</span><span class="lnk">Корзина (0)</span><div class="burger" id="burger"><span></span><span></span><span></span></div></div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="eyebrow rv">Профессиональный уход · 2026</div>
+      <h1 class="rv" style="transition-delay:.08s">Красота<br>в каждой <em>детали</em></h1>
+      <p class="lead rv" style="transition-delay:.16s">Техника BORMAN — для безупречной укладки и здоровых, ухоженных волос каждый день.</p>
+      <div class="rv" style="transition-delay:.24s"><a href="#best" class="btn gold">Смотреть каталог</a> &nbsp; <a href="#tech" class="btn">Технология Silk</a></div>
+    </div>
+    <div class="hero-img rv" style="transition-delay:.2s">
+      <img src="../assets/hero_light.webp" alt="BORMAN styler" fetchpriority="high">
+      <div class="hero-tag"><small>Новинка</small><b>BM Silk 2.0</b></div>
+    </div>
+  </div>
+  <div class="marq"><span>Ионизация&nbsp;<i>✦</i>&nbsp;Керамика&nbsp;<i>✦</i>&nbsp;Защита от перегрева&nbsp;<i>✦</i>&nbsp;Турмалин&nbsp;<i>✦</i>&nbsp;Ионизация&nbsp;<i>✦</i>&nbsp;Керамика&nbsp;<i>✦</i>&nbsp;Защита от перегрева&nbsp;<i>✦</i>&nbsp;Турмалин&nbsp;<i>✦</i></span></div>
+</section>
+
+<section id="cats">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="eyebrow">Коллекции</div><h2>Найдите свой ритуал</h2></div>
+    <div class="cats">
+      <a class="cat rv" href="#best"><img src="../assets/cat_styling.webp" alt="Стайлеры"><div class="lbl"><small>18 моделей</small><h3>Стайлеры</h3></div></a>
+      <a class="cat rv" style="transition-delay:.1s" href="#best"><img src="../assets/cat_curling.webp" alt="Плойки"><div class="lbl"><small>12 моделей</small><h3>Плойки и щипцы</h3></div></a>
+      <a class="cat rv" style="transition-delay:.2s" href="#best"><img src="../assets/cat_care.webp" alt="Уход"><div class="lbl"><small>26 позиций</small><h3>Уход и аксессуары</h3></div></a>
+    </div>
+  </div>
+</section>
+
+<section id="best" style="background:var(--cream)">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="eyebrow">Выбор редакции</div><h2>Хиты продаж</h2></div>
+    <div class="grid">
+      <div class="card rv"><div class="ph"><img src="../assets/prod_straightener.webp" alt=""></div><div class="info"><small>Утюжок</small><h3>BM Silk 2.0</h3><div class="price"><b>10 000 ₸</b><span>В корзину</span></div></div></div>
+      <div class="card rv" style="transition-delay:.08s"><div class="ph"><img src="../assets/prod_airstyler.webp" alt=""></div><div class="info"><small>Стайлер</small><h3>Air Pro</h3><div class="price"><b>24 900 ₸</b><span>В корзину</span></div></div></div>
+      <div class="card rv" style="transition-delay:.16s"><div class="ph"><img src="../assets/prod_curler.webp" alt=""></div><div class="info"><small>Плойка</small><h3>Wave</h3><div class="price"><b>13 500 ₸</b><span>В корзину</span></div></div></div>
+      <div class="card rv" style="transition-delay:.24s"><div class="ph"><img src="../assets/prod_dryerbrush.webp" alt=""></div><div class="info"><small>Фен-щётка</small><h3>Volume</h3><div class="price"><b>18 700 ₸</b><span>В корзину</span></div></div></div>
+    </div>
+    <div style="text-align:center;margin-top:46px" class="rv"><a href="#" class="btn">Весь каталог →</a></div>
+  </div>
+</section>
+
+<section id="tech">
+  <div class="wrap edi">
+    <img class="rv order1" src="../assets/life_hands.webp" alt="BORMAN technology">
+    <div>
+      <div class="eyebrow rv">Технология</div>
+      <h2 class="rv" style="transition-delay:.08s">Silk-керамика,<br>что бережёт волос</h2>
+      <p class="rv" style="transition-delay:.14s">Равномерный нагрев до 160°C, турмалиновое покрытие и активная ионизация разглаживают волос без пережигания — блеск как после салона.</p>
+      <p class="rv" style="transition-delay:.2s">6 температурных режимов, дисплей и защита от перегрева — контроль в каждом движении.</p>
+      <div class="facts rv" style="transition-delay:.28s">
+        <div><b>160°</b><small>Точный нагрев</small></div>
+        <div><b>6</b><small>Режимов</small></div>
+        <div><b>2.4м</b><small>Кабель, вращение</small></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="band rv"><img src="../assets/life_editorial.webp" alt=""><div class="txt"><div class="eyebrow" style="color:var(--gold-lt)">BORMAN Ritual</div><h2>Ухоженность,<br>которую видно</h2><p style="color:#e8ddcb;margin:16px 0 26px;max-width:400px">Профессиональный результат дома — каждый день.</p><a class="btn gold" href="#best">Собрать набор</a></div></div>
+  </div>
+</section>
+
+<footer id="care">
+  <div class="wrap">
+    <div class="logo">BORMAN</div>
+    <div class="fgrid">
+      <div><p style="max-width:280px;color:#b6a891;margin-top:14px">Профессиональная техника для укладки и ухода за волосами. Красота в каждой детали.</p></div>
+      <div><h4>Каталог</h4><a href="#">Стайлеры</a><a href="#">Плойки</a><a href="#">Утюжки</a><a href="#">Уход</a></div>
+      <div><h4>Бренд</h4><a href="#">О BORMAN</a><a href="#">Технологии</a><a href="#">Гарантия</a></div>
+      <div><h4>Контакты</h4><a href="#">Алматы</a><a href="#">+7 700 000 00 00</a><a href="#">Instagram</a></div>
+    </div>
+    <div class="fbot"><span>© 2026 BORMAN. Все права защищены.</span><span>Концепт «Éclat» · v1</span></div>
+  </div>
+</footer>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>40));
+  const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  document.getElementById('burger').onclick=()=>document.querySelector('.menu').style.display=(getComputedStyle(document.querySelector('.menu')).display==='none'?'flex':'none');
+</script>
+</body>
+</html>

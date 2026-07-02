@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BORMAN — Красота в движении</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#08080a;--txt:#f4f0ea;--mut:#9a948b;--gold:#cda65c;--gold2:#eccf8c;--line:rgba(255,255,255,.1);--disp:'Unbounded',sans-serif;--body:'Manrope',system-ui,sans-serif}
+  *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+  .wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-family:var(--disp);font-weight:800;line-height:1.02;letter-spacing:-.02em}
+  .gold{color:var(--gold2)}
+  .btn{display:inline-block;font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.06em;padding:15px 32px;border-radius:100px;background:linear-gradient(100deg,var(--gold),var(--gold2));color:#1c1608;transition:.35s}
+  .btn:hover{box-shadow:0 14px 40px -8px rgba(205,166,92,.6);transform:translateY(-2px)}
+  .btn.g{background:transparent;color:var(--txt);border:1px solid var(--line)}.btn.g:hover{border-color:var(--gold)}
+  /* preloader */
+  #pre{position:fixed;inset:0;z-index:200;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s;gap:22px}
+  #pre.hide{opacity:0;pointer-events:none}
+  #pre .lg{font-family:var(--disp);font-weight:800;font-size:30px;letter-spacing:.3em;padding-left:.3em}
+  #pre .bar{width:200px;height:2px;background:var(--line);border-radius:2px;overflow:hidden}
+  #pre .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),var(--gold2))}
+  #pre small{color:var(--mut);font-size:11px;letter-spacing:.3em;text-transform:uppercase}
+  /* header */
+  header{position:fixed;inset:0 0 auto;z-index:60;padding:20px 0;mix-blend-mode:difference}
+  .nav{display:flex;justify-content:space-between;align-items:center}
+  .logo{font-family:var(--disp);font-weight:800;font-size:22px;letter-spacing:.26em;color:#fff}
+  .menu{display:flex;gap:30px;font-size:14px;font-weight:500;color:#fff}
+  @media(max-width:760px){.menu{display:none}}
+  /* scene / pinned canvas */
+  .scene{height:400vh;position:relative}
+  .pin{position:sticky;top:0;height:100vh;overflow:hidden}
+  #c{width:100%;height:100%;object-fit:cover;display:block}
+  .pin::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,transparent 40%,rgba(8,8,10,.7))}
+  .caps{position:absolute;inset:0;z-index:3;display:flex;align-items:center;justify-content:center;text-align:center;padding:24px;pointer-events:none}
+  .cap{position:absolute;opacity:0;transform:translateY(30px);transition:.7s;max-width:900px}
+  .cap.on{opacity:1;transform:none}
+  .cap h1{font-size:clamp(40px,8vw,110px)}
+  .cap h2{font-size:clamp(32px,6vw,80px)}
+  .cap p{color:#d9d2c6;font-size:clamp(15px,2vw,20px);margin-top:18px;font-weight:300;max-width:520px;margin-left:auto;margin-right:auto}
+  .cap .btn{pointer-events:auto;margin-top:26px}
+  .scrollhint{position:fixed;bottom:26px;left:50%;transform:translateX(-50%);z-index:5;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);transition:.5s}
+  .specrow{display:flex;gap:40px;justify-content:center;margin-top:24px}
+  .specrow div b{font-family:var(--disp);font-size:30px;color:var(--gold2);display:block}
+  .specrow div small{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
+  /* content */
+  section{padding:110px 0}
+  .sec-head{text-align:center;max-width:640px;margin:0 auto 54px}
+  .sec-head h2{font-size:clamp(34px,5vw,64px);margin-top:14px}
+  .eyebrow{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.4s}
+  .card:hover{transform:translateY(-8px);border-color:rgba(205,166,92,.4)}
+  .card .ph{aspect-ratio:1;background:radial-gradient(circle,#fbf7f0,#efe6d6);display:flex;align-items:center;justify-content:center;padding:18px}
+  .card .ph img{width:90%;height:90%;object-fit:contain;mix-blend-mode:multiply}
+  .card .info{padding:18px 20px}.card .info h3{font-family:var(--disp);font-size:17px;font-weight:600}
+  .card .info small{color:var(--gold);font-size:10px;letter-spacing:.18em;text-transform:uppercase}
+  .card .info b{display:block;margin-top:8px;font-weight:600}
+  footer{border-top:1px solid var(--line);padding:60px 0 36px;text-align:center;color:var(--mut)}
+  .rv{opacity:0;transform:translateY(30px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+  @media(max-width:760px){.scene{height:340vh}.grid{grid-template-columns:1fr 1fr}.specrow{gap:24px}section{padding:70px 0}}
+</style>
+</head>
+<body>
+<div id="pre"><div class="lg">BORMAN</div><div class="bar"><i id="prog"></i></div><small id="pct">Загрузка 0%</small></div>
+
+<header><div class="wrap nav"><div class="logo">BORMAN</div><nav class="menu"><a href="#cat">Каталог</a><a href="#">Технологии</a><a href="#">Контакты</a></nav></div></header>
+
+<div class="scene" id="scene">
+  <div class="pin">
+    <canvas id="c"></canvas>
+    <div class="caps">
+      <div class="cap" id="cap0"><div class="eyebrow" style="margin-bottom:14px">BORMAN · 2026</div><h1>Красота<br>в <span class="gold">движении</span></h1><p>Пролистайте, чтобы увидеть флагман в деле.</p></div>
+      <div class="cap" id="cap1"><h2>BM Silk <span class="gold">2.0</span></h2><p>Silk-керамика и ионизация — гладкость и блеск без вреда для волос.</p></div>
+      <div class="cap" id="cap2"><h2 class="gold">Ощутите разницу</h2><div class="specrow"><div><b>160°</b><small>Точный нагрев</small></div><div><b>Ion</b><small>Ионизация</small></div><div><b>6</b><small>режимов</small></div></div><a href="#cat" class="btn">Купить за 10 000 ₸</a></div>
+    </div>
+  </div>
+</div>
+<div class="scrollhint" id="hint">Листайте ↓</div>
+
+<section id="cat">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="eyebrow">Каталог</div><h2>Вся линейка BORMAN</h2></div>
+    <div class="grid">
+      <div class="card rv"><div class="ph"><img src="../assets/prod_straightener.webp" alt=""></div><div class="info"><small>Утюжок</small><h3>BM Silk 2.0</h3><b>10 000 ₸</b></div></div>
+      <div class="card rv" style="transition-delay:.08s"><div class="ph"><img src="../assets/prod_airstyler.webp" alt=""></div><div class="info"><small>Стайлер</small><h3>Air Pro</h3><b>24 900 ₸</b></div></div>
+      <div class="card rv" style="transition-delay:.16s"><div class="ph"><img src="../assets/prod_curler.webp" alt=""></div><div class="info"><small>Плойка</small><h3>Wave</h3><b>13 500 ₸</b></div></div>
+      <div class="card rv" style="transition-delay:.24s"><div class="ph"><img src="../assets/prod_dryerbrush.webp" alt=""></div><div class="info"><small>Фен-щётка</small><h3>Volume</h3><b>18 700 ₸</b></div></div>
+    </div>
+    <div style="text-align:center;margin-top:44px" class="rv"><a href="#" class="btn">Весь каталог</a></div>
+  </div>
+</section>
+
+<footer><div class="wrap"><div class="logo" style="justify-content:center">BORMAN</div><p style="margin-top:14px">© 2026 BORMAN · Концепт «Motion» (Veo-видео-скролл) · v4</p></div></footer>
+
+<script>
+  const N=96, frames=[]; let loaded=0, ready=false;
+  const canvas=document.getElementById('c'), ctx=canvas.getContext('2d');
+  const pre=document.getElementById('pre'), prog=document.getElementById('prog'), pct=document.getElementById('pct');
+  function pad(n){return String(n).padStart(3,'0')}
+  function resize(){const d=Math.min(devicePixelRatio||1,2);canvas.width=innerWidth*d;canvas.height=innerHeight*d;ctx.setTransform(d,0,0,d,0,0);if(ready)render()}
+  addEventListener('resize',resize);
+  let curFrame=0;
+  function drawCover(img){const cw=innerWidth,ch=innerHeight;const r=Math.max(cw/img.width,ch/img.height);const w=img.width*r,h=img.height*r;ctx.clearRect(0,0,cw,ch);ctx.drawImage(img,(cw-w)/2,(ch-h)/2,w,h)}
+  function render(){const img=frames[curFrame];if(img&&img.complete)drawCover(img)}
+  for(let i=1;i<=N;i++){const im=new Image();im.onload=()=>{loaded++;const p=Math.round(loaded/N*100);prog.style.width=p+'%';pct.textContent='Загрузка '+p+'%';if(loaded===N){ready=true;resize();pre.classList.add('hide')}};im.src='frames/f'+pad(i)+'.webp';frames[i-1]=im}
+  resize();
+  const scene=document.getElementById('scene');
+  const caps=[document.getElementById('cap0'),document.getElementById('cap1'),document.getElementById('cap2')];
+  const hint=document.getElementById('hint');
+  function onScroll(){
+    const rect=scene.getBoundingClientRect();const total=scene.offsetHeight-innerHeight;
+    let p=Math.min(1,Math.max(0,-rect.top/total));
+    curFrame=Math.min(N-1,Math.floor(p*(N-1)));render();
+    caps[0].classList.toggle('on',p<0.34);
+    caps[1].classList.toggle('on',p>=0.34&&p<0.66);
+    caps[2].classList.toggle('on',p>=0.66);
+    hint.style.opacity=p>0.05?0:1;
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BORMAN — Технологии красоты</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Manrope:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0c0c0e; --bg2:#141417; --panel:#17171b; --line:rgba(255,255,255,.09);
+    --txt:#f3efe9; --mut:#a09a90; --gold:#c9a35a; --gold2:#e6c884; --rose:#cf9d7e;
+    --disp:'Syne',sans-serif; --body:'Manrope',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--txt);font-family:var(--body);font-weight:300;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+  body::before{content:"";position:fixed;inset:0;z-index:0;background:radial-gradient(60% 50% at 75% 8%,rgba(201,163,90,.16),transparent 60%),radial-gradient(50% 40% at 10% 90%,rgba(207,157,126,.1),transparent 60%);pointer-events:none}
+  a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+  .wrap{max-width:1240px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
+  h1,h2,h3{font-family:var(--disp);font-weight:700;line-height:1.02;letter-spacing:-.02em}
+  .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--gold);font-weight:600}
+  .btn{display:inline-block;font-family:var(--body);font-weight:600;font-size:13px;letter-spacing:.06em;padding:15px 32px;border-radius:100px;transition:.35s;border:1px solid var(--gold)}
+  .btn.fill{background:linear-gradient(100deg,var(--gold),var(--gold2));color:#1a1408;border:0}
+  .btn.fill:hover{box-shadow:0 12px 40px -8px rgba(201,163,90,.6);transform:translateY(-2px)}
+  .btn.ghost{color:var(--txt);border-color:var(--line)}
+  .btn.ghost:hover{border-color:var(--gold);color:var(--gold2)}
+  header{position:fixed;inset:0 0 auto;z-index:50;padding:20px 0;transition:.4s}
+  header.solid{background:rgba(12,12,14,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:13px 0}
+  .nav{display:flex;align-items:center;justify-content:space-between}
+  .logo{font-family:var(--disp);font-weight:800;font-size:23px;letter-spacing:.28em;padding-left:.28em}
+  .menu{display:flex;gap:32px;font-size:14px;font-weight:500}
+  .menu a{color:var(--mut);transition:.25s}.menu a:hover{color:var(--gold2)}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer}.burger span{width:24px;height:2px;background:var(--txt);border-radius:2px}
+  /* hero */
+  .hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:0}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;opacity:.5}
+  .hero-bg::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 8%,rgba(12,12,14,.4) 55%,transparent)}
+  .hero .wrap{padding-top:90px}
+  .hero h1{font-size:clamp(52px,9vw,132px);font-weight:800}
+  .hero h1 .g{background:linear-gradient(100deg,var(--gold),var(--gold2),var(--rose));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero p{max-width:440px;margin:28px 0 36px;color:var(--mut);font-size:18px}
+  .hero .cta{display:flex;gap:14px;flex-wrap:wrap}
+  .scrolldot{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--mut);animation:bob 2s ease-in-out infinite}
+  @keyframes bob{50%{transform:translate(-50%,8px)}}
+  /* feature row */
+  .feat{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg2)}
+  .feat .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+  .feat .f{background:var(--bg2);padding:40px 26px}
+  .feat .f b{font-family:var(--disp);font-size:16px;display:block;margin-bottom:8px}
+  .feat .f small{color:var(--mut);font-size:14px;font-weight:300}
+  .feat .f .n{font-family:var(--disp);font-size:40px;color:var(--gold2);line-height:1;margin-bottom:14px}
+  section{padding:110px 0}
+  .sec-head{max-width:640px;margin-bottom:56px}
+  .sec-head h2{font-size:clamp(36px,5.5vw,68px);margin-top:14px}
+  .sec-head p{color:var(--mut);margin-top:16px;font-size:17px}
+  /* products */
+  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+  .card{background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:.4s;backdrop-filter:blur(4px)}
+  .card:hover{transform:translateY(-8px);border-color:rgba(201,163,90,.45);box-shadow:0 30px 60px -30px rgba(201,163,90,.35)}
+  .card .ph{aspect-ratio:1;background:radial-gradient(circle at 50% 40%,#fbf7f0,#efe6d6);display:flex;align-items:center;justify-content:center;padding:18px}
+  .card .ph img{width:90%;height:90%;object-fit:contain;mix-blend-mode:multiply}
+  .card .info{padding:20px 22px 24px}
+  .card .info small{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
+  .card .info h3{font-family:var(--disp);font-size:22px;margin:6px 0}
+  .card .price{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+  .card .price b{font-size:19px;font-weight:600;font-family:var(--body)}
+  .card .price .add{width:38px;height:38px;border-radius:50%;border:1px solid var(--gold);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-size:20px;transition:.3s}
+  .card:hover .price .add{background:var(--gold);color:#1a1408}
+  /* showcase */
+  .show{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;background:linear-gradient(120deg,#151519,#101013);border:1px solid var(--line);border-radius:28px;padding:60px;overflow:hidden}
+  .show .ph{position:relative}
+  .show .ph img{width:100%;border-radius:16px}
+  .show .glow{position:absolute;inset:-20%;background:radial-gradient(circle,rgba(201,163,90,.35),transparent 60%);z-index:-1;filter:blur(30px)}
+  .show h2{font-size:clamp(34px,4.4vw,54px);margin:14px 0 20px}
+  .show p{color:var(--mut);margin-bottom:26px;max-width:420px}
+  .specs{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .specs div{background:#131317;padding:18px 20px}
+  .specs b{font-family:var(--disp);font-size:26px;color:var(--gold2);display:block}
+  .specs small{color:var(--mut);font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+  footer{background:#0a0a0c;border-top:1px solid var(--line);padding:80px 0 36px;margin-top:40px}
+  .fgrid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:36px;margin:36px 0}
+  .fgrid h4{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:14px;font-weight:600}
+  .fgrid a{display:block;padding:5px 0;color:var(--mut);font-size:14px}.fgrid a:hover{color:var(--txt)}
+  .fbot{border-top:1px solid var(--line);padding-top:22px;display:flex;justify-content:space-between;font-size:12px;color:#6c665d;flex-wrap:wrap;gap:10px}
+  .rv{opacity:0;transform:translateY(34px);transition:1s cubic-bezier(.2,.7,.2,1)}.rv.in{opacity:1;transform:none}
+  @media(max-width:900px){
+    .menu{display:none}.burger{display:flex}
+    .feat .wrap{grid-template-columns:1fr 1fr}.grid{grid-template-columns:1fr 1fr}
+    .show{grid-template-columns:1fr;padding:32px;gap:30px}.show .order1{order:-1}
+    section{padding:70px 0}.specs{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:520px){.grid{grid-template-columns:1fr}.feat .wrap{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header id="hdr"><div class="wrap nav">
+  <div class="logo">BORMAN</div>
+  <nav class="menu"><a href="#tech">Технологии</a><a href="#best">Каталог</a><a href="#hero">BM&nbsp;Silk</a><a href="#f">Контакты</a></nav>
+  <a href="#best" class="btn ghost" style="padding:10px 22px">Магазин</a>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</div></header>
+
+<section class="hero" id="hero">
+  <div class="hero-bg"><img src="../assets/hero_dark.webp" alt=""></div>
+  <div class="wrap">
+    <div class="eyebrow rv">BORMAN · Beauty Technology</div>
+    <h1 class="rv" style="transition-delay:.08s">Технологии<br><span class="g">красоты</span></h1>
+    <p class="rv" style="transition-delay:.16s">Инженерная точность и премиальные материалы для безупречной укладки и сияющих волос.</p>
+    <div class="cta rv" style="transition-delay:.24s"><a href="#best" class="btn fill">Выбрать устройство</a><a href="#tech" class="btn ghost">Как это работает</a></div>
+  </div>
+  <div class="scrolldot">Листайте вниз</div>
+</section>
+
+<div class="feat">
+  <div class="wrap">
+    <div class="f rv"><div class="n">160°</div><b>Точный нагрев</b><small>Стабильная температура без пережигания волос.</small></div>
+    <div class="f rv" style="transition-delay:.08s"><div class="n">Ion</div><b>Ионизация</b><small>Антистатика и зеркальный блеск.</small></div>
+    <div class="f rv" style="transition-delay:.16s"><div class="n">6</div><b>Режимов</b><small>Под любой тип и длину волос.</small></div>
+    <div class="f rv" style="transition-delay:.24s"><div class="n">2y</div><b>Гарантия</b><small>Официальный сервис в Казахстане.</small></div>
+  </div>
+</div>
+
+<section id="best">
+  <div class="wrap">
+    <div class="sec-head rv"><div class="eyebrow">Каталог</div><h2>Устройства BORMAN</h2><p>Профессиональная линейка для дома — керамика, турмалин, ионизация.</p></div>
+    <div class="grid">
+      <div class="card rv"><div class="ph"><img src="../assets/prod_airstyler.webp" alt=""></div><div class="info"><small>Стайлер</small><h3>Air Pro</h3><div class="price"><b>24 900 ₸</b><span class="add">+</span></div></div></div>
+      <div class="card rv" style="transition-delay:.08s"><div class="ph"><img src="../assets/prod_straightener.webp" alt=""></div><div class="info"><small>Утюжок</small><h3>BM Silk 2.0</h3><div class="price"><b>10 000 ₸</b><span class="add">+</span></div></div></div>
+      <div class="card rv" style="transition-delay:.16s"><div class="ph"><img src="../assets/prod_dryerbrush.webp" alt=""></div><div class="info"><small>Фен-щётка</small><h3>Volume</h3><div class="price"><b>18 700 ₸</b><span class="add">+</span></div></div></div>
+      <div class="card rv" style="transition-delay:.24s"><div class="ph"><img src="../assets/prod_dryer.webp" alt=""></div><div class="info"><small>Фен</small><h3>Ion Air</h3><div class="price"><b>21 400 ₸</b><span class="add">+</span></div></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="tech" style="padding-top:0">
+  <div class="wrap">
+    <div class="show">
+      <div class="ph rv order1"><div class="glow"></div><img src="../assets/prod_straightener.webp" alt="BM Silk 2.0"></div>
+      <div>
+        <div class="eyebrow rv">Флагман</div>
+        <h2 class="rv" style="transition-delay:.08s">BM Silk 2.0</h2>
+        <p class="rv" style="transition-delay:.14s">Утюжок и укладка «два в одном»: керамические пластины, турмалиновое покрытие и ионизация для гладкости без вреда.</p>
+        <div class="specs rv" style="transition-delay:.2s">
+          <div><b>1300W</b><small>Мощность</small></div>
+          <div><b>160°C</b><small>Макс. нагрев</small></div>
+          <div><b>2.4 м</b><small>Кабель, вращение</small></div>
+          <div><b>1 кг</b><small>Вес корпуса</small></div>
+        </div>
+        <div style="margin-top:28px" class="rv" style="transition-delay:.26s"><a href="#" class="btn fill">Купить за 10 000 ₸</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="f"><div class="wrap">
+  <div class="logo">BORMAN</div>
+  <div class="fgrid">
+    <div><p style="color:var(--mut);max-width:280px;margin-top:14px">Технологичная техника для укладки. Инженерная точность в каждой детали.</p></div>
+    <div><h4>Каталог</h4><a href="#">Стайлеры</a><a href="#">Утюжки</a><a href="#">Фены</a><a href="#">Плойки</a></div>
+    <div><h4>Компания</h4><a href="#">О бренде</a><a href="#">Технологии</a><a href="#">Сервис</a></div>
+    <div><h4>Связь</h4><a href="#">Алматы</a><a href="#">+7 700 000 00 00</a><a href="#">Instagram</a></div>
+  </div>
+  <div class="fbot"><span>© 2026 BORMAN. Beauty Technology.</span><span>Концепт «Noir» · v2</span></div>
+</div></footer>
+
+<script>
+  const hdr=document.getElementById('hdr');
+  addEventListener('scroll',()=>hdr.classList.toggle('solid',scrollY>60));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+  document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+  document.getElementById('burger').onclick=()=>{const m=document.querySelector('.menu');m.style.display=m.style.display==='flex'?'none':'flex';m.style.position='absolute';m.style.top='60px';m.style.right='24px';m.style.flexDirection='column';m.style.background='#141417';m.style.padding='18px 24px';m.style.borderRadius='12px';m.style.border='1px solid var(--line)'};
+</script>
+</body>
+</html>
